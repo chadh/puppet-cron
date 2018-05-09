@@ -2,9 +2,9 @@
   "name": "chadh-rsg_cron",
   "version": "0.1.0",
   "author": "Chad Huneycutt",
-  "summary": "",
+  "summary": "RSG Cron Module",
   "license": "Apache-2.0",
-  "source": "",
+  "source": "https://git.rsglab.com/rsg/puppet-rsg_cron",
   "dependencies": [
 
   ],
@@ -16,29 +16,18 @@
       ]
     },
     {
-      "operatingsystem": "OracleLinux",
-      "operatingsystemrelease": [
-        "7"
-      ]
-    },
-    {
-      "operatingsystem": "RedHat",
-      "operatingsystemrelease": [
-        "7"
-      ]
-    },
-    {
-      "operatingsystem": "Scientific",
-      "operatingsystemrelease": [
-        "7"
-      ]
-    },
-    {
       "operatingsystem": "Solaris",
       "operatingsystemrelease": [
         "11"
       ]
+    },
+    {
+      "operatingsystem": "FreeBSD",
+      "operatingsystemrelease": [
+        "11"
+      ]
     }
+
   ],
   "requirements": [
     {

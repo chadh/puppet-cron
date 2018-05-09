@@ -1,0 +1,2 @@
+rsg_cron::purge: false
+rsg_cron::classic: true
