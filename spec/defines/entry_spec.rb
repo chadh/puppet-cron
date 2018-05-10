@@ -26,7 +26,7 @@ describe 'rsg_cron::entry' do
           it do
             is_expected.to contain_file(cronfile) \
               .with_content("* * * * * root #{command}\n")
-        end
+          end
         end
 
         context 'with persistent param true' do
@@ -217,6 +217,48 @@ describe 'rsg_cron::entry' do
           it do
             is_expected.to contain_file(cronfile) \
               .with_content("0-5,10,40-59 0-4,10,21-23 1-5,10,25-31 1-3,10,11-12 0-2,5,6-7 root #{command}\n")
+          end
+        end
+
+        context 'with environment hash' do
+          let(:params) do
+            super().merge(
+              'environment' => {
+                'PATH' => '/bin:/sbin:/usr/bin',
+                'MAILTO' => '',
+              }
+            )
+          end
+
+          it do
+            is_expected.to contain_file(cronfile) \
+              .with_content("PATH=/bin:/sbin:/usr/bin\nMAILTO=\n* * * * * root #{command}\n")
+          end
+        end
+
+        context 'with environment array' do
+          let(:params) do
+            super().merge(
+              'environment' => [ '# environment', 'PATH = /bin:/sbin:/usr/bin', 'MAILTO='],
+            )
+          end
+
+          it do
+            is_expected.to contain_file(cronfile) \
+              .with_content("# environment\nPATH = /bin:/sbin:/usr/bin\nMAILTO=\n* * * * * root #{command}\n")
+          end
+        end
+
+        context 'with environment string' do
+          let(:params) do
+            super().merge(
+              'environment' => "# environment\nPATH = /bin:/sbin:/usr/bin\nMAILTO=\n",
+            )
+          end
+
+          it do
+            is_expected.to contain_file(cronfile) \
+              .with_content("# environment\nPATH = /bin:/sbin:/usr/bin\nMAILTO=\n* * * * * root #{command}\n")
           end
         end
 
