@@ -23,7 +23,10 @@ describe 'rsg_cron::entry' do
         end
       else
         context 'with default params' do
-          it { is_expected.to contain_file(cronfile) }
+          it do
+            is_expected.to contain_file(cronfile) \
+              .with_content("* * * * * root #{command}\n")
+        end
         end
 
         context 'with persistent param true' do

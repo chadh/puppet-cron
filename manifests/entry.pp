@@ -70,26 +70,31 @@ define rsg_cron::entry(
     $_minute = $minute ? {
       Array   => join($minute,','),
       String  => regsubst($minute, ' ', ''),
+      undef   => '*',
       default => $minute,
     }
     $_hour = $hour ? {
       Array   => join($hour,','),
       String  => regsubst($hour, ' ', ''),
+      undef   => '*',
       default => $hour,
     }
     $_day = $day ? {
       Array   => join($day,','),
       String  => regsubst($day, ' ', ''),
+      undef   => '*',
       default => $day,
     }
     $_month = $month ? {
       Array   => join($month,','),
       String  => regsubst($month, ' ', ''),
+      undef   => '*',
       default => $month,
     }
     $_weekday = $weekday ? {
       Array   => join($weekday,','),
       String  => regsubst($weekday, ' ', ''),
+      undef   => '*',
       default => $weekday,
     }
   }
