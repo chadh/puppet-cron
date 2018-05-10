@@ -17,12 +17,26 @@
 # @param [Boolean] classic
 #   whether the host has an old version of cron that does not support `/etc/cron.d`
 #
+# @param [Boolean] manage_package
+#   whether or not to install the cron package
+#
+# @param [Optional[String[1]]] package_version
+#   version of package to install or just "installed" to install latest or keep current if already installed
+#
 class rsg_cron(
-  String[1] $prefix            = 'rsg',
-  String[1] $persistent_prefix = 'persistent',
-  Boolean $purge               = true,
-  Boolean $classic             = false
+  String[1] $prefix                 = 'rsg',
+  String[1] $persistent_prefix      = 'persistent',
+  Boolean $purge                    = true,
+  Boolean $classic                  = false,
+  Boolean $manage_package           = true,
+  Optional[String[1]] $package_name = undef,
+  String[1] $package_version        = 'installed',
 ) {
+  if $package_name {
+    package { $package_name:
+      ensure => $package_version,
+    }
+  }
 
   $purge_script = '/usr/local/sbin/purge_cron.sh'
   if $purge {
@@ -42,5 +56,4 @@ class rsg_cron(
       mode    => '0600',
     }
   }
-
 }

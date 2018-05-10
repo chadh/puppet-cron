@@ -4,5 +4,7 @@ defaults:
   datadir: data
   data_hash: yaml_data
 hierarchy:
-  - name: "OS-specific Module Data"
+  - name: 'OS-specific Module Data'
     path: "%{facts.os.family}.yaml"
+  - name: 'Common Module Data'
+    path: 'common.yaml'
