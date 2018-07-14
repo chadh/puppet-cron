@@ -1,2 +1,2 @@
 ---
-rsg_cron::packagename: 'cronie'
+rsg_cron::package_name: 'cronie'

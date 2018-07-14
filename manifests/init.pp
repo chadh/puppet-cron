@@ -23,37 +23,22 @@
 # @param [Optional[String[1]]] package_version
 #   version of package to install or just "installed" to install latest or keep current if already installed
 #
+# @param [Optional[String[1]]] package_name
+#   name of OS package
+#
 class rsg_cron(
-  String[1] $prefix                 = 'rsg',
-  String[1] $persistent_prefix      = 'persistent',
-  Boolean $purge                    = true,
-  Boolean $classic                  = false,
-  Boolean $manage_package           = true,
+  String[1] $prefix,
+  String[1] $persistent_prefix,
+  Boolean $purge,
+  Boolean $classic,
+  Boolean $manage_package,
+  String[1] $package_version,
   Optional[String[1]] $package_name = undef,
-  String[1] $package_version        = 'installed',
 ) {
-  if $package_name {
-    package { $package_name:
-      ensure => $package_version,
-    }
-  }
-
-  $purge_script = '/usr/local/sbin/purge_cron.sh'
-  if $purge {
-    file { $purge_script:
-      ensure  => present,
-      content => file('rsg_cron/purge_cron.sh'),
-      owner   => 'root',
-      group   => 'root',
-      mode    => '0700',
-    }
-
-    file { "/etc/cron.d/${prefix}${persistent_prefix}_purge_cron":
-      ensure  => present,
-      content => "*/10 * * * * root ${purge_script}\n",
-      owner   => 'root',
-      group   => 'root',
-      mode    => '0600',
-    }
-  }
+  contain rsg_cron::install
+  contain rsg_cron::config
+  contain rsg_cron::service
+  Class['rsg_cron::install']
+  -> Class['rsg_cron::config']
+  ~> Class['rsg_cron::service']
 }

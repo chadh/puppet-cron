@@ -1,4 +1,3 @@
 ---
-rsg_cron::purge: false
 rsg_cron::classic: true
 rsg_cron::package_name: 'SUNWcs'

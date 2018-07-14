@@ -13,11 +13,26 @@ describe 'rsg_cron::entry' do
 
   on_supported_os.each do |os, os_facts|
     context "on #{os}" do
-      let(:facts) { os_facts }
+      let(:facts) {
+        if not os_facts['os'].is_a?(Hash)
+          os_facts['os'] = {}
+        end
+
+        case os
+        when 'solaris-11-i86pc'
+          os_facts['os']['family'] = 'Solaris'
+        when 'freebsd-11-amd64'
+          os_facts['os']['family'] = 'FreeBSD'
+        when 'centos-7-x86_64'
+          os_facts['os']['family'] = 'RedHat'
+        end
+
+        os_facts
+      }
 
       it { is_expected.to compile }
 
-      if os == 'solaris-11-i86pc'
+      if os == 'solaris-11-i86pc' or os == 'freebsd-11-amd64'
         context 'with default params' do
           it { is_expected.to contain_cron('rsg_jobname') }
         end
@@ -226,7 +241,7 @@ describe 'rsg_cron::entry' do
               'environment' => {
                 'PATH' => '/bin:/sbin:/usr/bin',
                 'MAILTO' => '',
-              }
+              },
             )
           end
 
@@ -239,7 +254,7 @@ describe 'rsg_cron::entry' do
         context 'with environment array' do
           let(:params) do
             super().merge(
-              'environment' => [ '# environment', 'PATH = /bin:/sbin:/usr/bin', 'MAILTO='],
+              'environment' => ['# environment', 'PATH = /bin:/sbin:/usr/bin', 'MAILTO='],
             )
           end
 
