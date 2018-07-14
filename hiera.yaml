@@ -3,8 +3,8 @@ version: 5
 defaults:
   datadir: data
   data_hash: yaml_data
-hierarchy:
+default_hierarchy:
   - name: 'OS-specific Module Data'
     path: "%{facts.os.family}.yaml"
-  - name: 'Common Module Data'
-    path: 'common.yaml'
+  - name: 'Shared Module Data'
+    path: 'shared.yaml'
