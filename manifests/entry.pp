@@ -41,17 +41,21 @@
 # @param special
 #   override interval to run job (minute,hour,day,month,weekday ignored)
 #
+# @param environment
+#   cron environment specification (newline- or comma-separated lines, array of lines, or hash of key/values)
+#
 define rsg_cron::entry(
   String $command,
-  Enum['absent','present'] $ensure     = 'present',
-  Boolean $persistent                  = false,
-  String[1] $user                      = 'root',
-  Optional[Rsg_cron::Minute] $minute   = undef,
-  Optional[Rsg_cron::Hour] $hour       = undef,
-  Optional[Rsg_cron::Day] $day         = undef,
-  Optional[Rsg_cron::Month] $month     = undef,
-  Optional[Rsg_cron::Weekday] $weekday = undef,
-  Optional[Rsg_cron::Special] $special = undef,
+  Enum['absent','present'] $ensure             = 'present',
+  Boolean $persistent                          = false,
+  String[1] $user                              = 'root',
+  Optional[Rsg_cron::Minute] $minute           = undef,
+  Optional[Rsg_cron::Hour] $hour               = undef,
+  Optional[Rsg_cron::Day] $day                 = undef,
+  Optional[Rsg_cron::Month] $month             = undef,
+  Optional[Rsg_cron::Weekday] $weekday         = undef,
+  Optional[Rsg_cron::Special] $special         = undef,
+  Optional[Rsg_cron::Environment] $environment = undef,
 ) {
   require rsg_cron
 
@@ -70,39 +74,68 @@ define rsg_cron::entry(
     $_minute = $minute ? {
       Array   => join($minute,','),
       String  => regsubst($minute, ' ', ''),
+      undef   => '*',
       default => $minute,
     }
     $_hour = $hour ? {
       Array   => join($hour,','),
       String  => regsubst($hour, ' ', ''),
+      undef   => '*',
       default => $hour,
     }
     $_day = $day ? {
       Array   => join($day,','),
       String  => regsubst($day, ' ', ''),
+      undef   => '*',
       default => $day,
     }
     $_month = $month ? {
       Array   => join($month,','),
       String  => regsubst($month, ' ', ''),
+      undef   => '*',
       default => $month,
     }
     $_weekday = $weekday ? {
       Array   => join($weekday,','),
       String  => regsubst($weekday, ' ', ''),
+      undef   => '*',
       default => $weekday,
     }
   }
+
+  if $environment {
+    $env_array = $environment ? {
+      Hash => $environment.join_keys_to_values('='),
+      String => $environment.split('[\n,]'),
+      default => $environment,
+    }
+    $env_string = $env_array.join("\n")
+    $_environment = "${env_string}\n"
+  } else {
+    $_environment = undef
+  }
+
   if $rsg_cron::classic {
-    cron { $jobname:
-      ensure   => $ensure,
-      command  => $command,
-      user     => $user,
-      minute   => $_minute,
-      hour     => $_hour,
-      monthday => $_day,
-      month    => $_month,
-      weekday  => $_weekday,
+    if $special {
+      cron { $jobname:
+        ensure      => $ensure,
+        command     => $command,
+        user        => $user,
+        special     => $special,
+        environment => $_environment,
+      }
+    } else {
+      cron { $jobname:
+        ensure      => $ensure,
+        command     => $command,
+        user        => $user,
+        minute      => $_minute,
+        hour        => $_hour,
+        monthday    => $_day,
+        month       => $_month,
+        weekday     => $_weekday,
+        environment => $_environment,
+      }
     }
   } else {
     if $special {
@@ -113,7 +146,7 @@ define rsg_cron::entry(
 
     file { "/etc/cron.d/${jobname}.cron":
       ensure  => $ensure,
-      content => "${time} ${user} ${command}\n",
+      content => "${_environment}${time} ${user} ${command}\n",
       owner   => 'root',
       group   => 'root',
       mode    => '0600',

@@ -1,0 +1,3 @@
+---
+rsg_cron::manage_package: false
+rsg_cron::classic: true
