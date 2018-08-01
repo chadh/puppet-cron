@@ -3,8 +3,8 @@ require 'spec_helper'
 describe 'rsg_cron::install' do
   on_supported_os.each do |os, os_facts|
     context "on #{os}" do
-      let(:facts) {
-        if not os_facts['os'].is_a?(Hash)
+      let(:facts) do
+        unless os_facts['os'].is_a?(Hash)
           os_facts['os'] = {}
         end
 
@@ -18,11 +18,11 @@ describe 'rsg_cron::install' do
         end
 
         os_facts
-      }
+      end
 
       it { is_expected.to compile }
 
-      if os == 'solaris-11-i86pc' or os == 'freebsd-11-amd64'
+      if ['solaris-11-i86pc', 'freebsd-11-amd64'].include?(os)
         it { is_expected.not_to contain_file('/usr/local/sbin/purge_cron.sh') }
       else
         it { is_expected.to contain_file('/usr/local/sbin/purge_cron.sh') }
