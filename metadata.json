@@ -28,10 +28,14 @@
       ]
     }
   ],
-  "requirements": [
+  "dependencies": [
     {
       "name": "puppet",
       "version_requirement": ">= 4.7.0 < 6.0.0"
+    },
+    {
+      "name": "puppetlabs/stdlib",
+      "version_requirement": ">= 4.13.0"
     }
   ],
   "pdk-version": "1.6.1",

@@ -26,18 +26,17 @@ class cron::install {
     }
   }
   if $cron::purge and ! $cron::classic {
-    $purge_script = '/usr/local/sbin/purge_cron.sh'
-    file { $purge_script:
+    file { $cron::purge_script:
       ensure  => present,
-      content => file('cron/purge_cron.sh'),
+      content => epp('cron/purge_cron.sh.epp', {'prefix' => $cron::prefix}),
       owner   => 'root',
       group   => 'root',
       mode    => '0700',
     }
 
-    file { "/etc/cron.d/${cron::prefix}${cron::persistent_prefix}_purge_cron":
+    file { "/etc/cron.d/${cron::persistent_prefix}_purge_cron":
       ensure  => present,
-      content => "*/10 * * * * root ${purge_script}\n",
+      content => "*/10 * * * * root ${$cron::purge_script}\n",
       owner   => 'root',
       group   => 'root',
       mode    => '0600',

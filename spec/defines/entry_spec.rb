@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'cron::entry' do
   jobname = 'jobname'
-  cronfile = "/etc/cron.d/rsg_#{jobname}.cron"
+  cronfile = "/etc/cron.d/pup_#{jobname}.cron"
   command = '/bin/false'
   let(:title) { jobname }
   let(:params) do
@@ -34,7 +34,7 @@ describe 'cron::entry' do
 
       if ['solaris-11-i86pc', 'freebsd-11-amd64'].include?(os)
         context 'with default params' do
-          it { is_expected.to contain_cron('rsg_jobname') }
+          it { is_expected.to contain_cron('pup_jobname') }
         end
       else
         context 'with default params' do
@@ -51,7 +51,7 @@ describe 'cron::entry' do
             )
           end
 
-          it { is_expected.to contain_file("/etc/cron.d/rsgpersistent_#{jobname}.cron") }
+          it { is_expected.to contain_file("/etc/cron.d/persistent_#{jobname}.cron") }
         end
 
         context 'with special paramter' do

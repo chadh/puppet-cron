@@ -1,5 +1,5 @@
 
-# rsg_cron
+# cron
 
 
 
@@ -7,24 +7,24 @@
 #### Table of Contents
 
 1. [Description](#description)
-2. [Setup - The basics of getting started with rsg_cron](#setup)
-    * [Beginning with rsg_cron](#beginning-with-rsg_cron)
+2. [Setup - The basics of getting started with cron](#setup)
+    * [Beginning with cron](#beginning-with-cron)
 3. [Usage - Configuration options and additional functionality](#usage)
 4. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
 5. [Limitations - OS compatibility, etc.](#limitations)
 
 ## Description
 
-The `rsg_cron` module provides resources for managing cron jobs in `/etc/cron.d`.  Beyond just creating the cron files, it also deploys a cleaner script that removes jobs that are no longer managed by puppet.
+The `cron` module provides resources for managing cron jobs in `/etc/cron.d`.  Beyond just creating the cron files, it also deploys a cleaner script that removes jobs that are no longer managed by puppet.
 
 ## Setup
 
-### Beginning with rsg_cron
+### Beginning with cron
 
-To use the `rsg_cron` module, include it:
+To use the `cron` module, include it:
 
 ``` puppet
-include rsg_cron
+include cron
 ```
 
 ## Usage
@@ -47,5 +47,5 @@ This module uses puppet strings for documentation.
 
 ## Limitations
 
-As long as this module is used for generating cron entries, they will be cleaned up when they are no longer managed (that is, when the resource is removed from your puppet catalog).  The cleanup script works by looking at all jobs with "mcpup" prefix, so if you do not want the cron job to be purged, you will need to rename it.
+As long as this module is used for generating cron entries, they will be cleaned up when they are no longer managed (that is, when the resource is removed from your puppet catalog).  The cleanup script works by looking at all jobs with "pup" prefix, so if you do not want the cron job to be purged, you will need to rename it.
 

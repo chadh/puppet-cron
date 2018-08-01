@@ -1,8 +1,9 @@
 ---
-cron::prefix: 'rsg'
+cron::prefix: 'pup'
 cron::persistent_prefix: 'persistent'
 cron::purge: true
 cron::classic: false
 cron::manage_package: true
 cron::package_version: 'installed'
 cron::package_name: ~
+cron::purge_script: '/usr/local/sbin/purge_cron.sh'
