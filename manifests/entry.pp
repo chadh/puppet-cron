@@ -46,9 +46,9 @@
 #
 define cron::entry(
   String $command,
-  Enum['absent','present'] $ensure             = 'present',
-  Boolean $persistent                          = false,
-  String[1] $user                              = 'root',
+  Enum['absent','present'] $ensure         = 'present',
+  Boolean $persistent                      = false,
+  String[1] $user                          = 'root',
   Optional[Cron::Minute] $minute           = undef,
   Optional[Cron::Hour] $hour               = undef,
   Optional[Cron::Day] $day                 = undef,
@@ -60,7 +60,7 @@ define cron::entry(
   require cron
 
   if $persistent {
-    $prefix = "${cron::prefix}${cron::persistent_prefix}_"
+    $prefix = "${cron::persistent_prefix}_"
   } else {
     $prefix = "${cron::prefix}_"
   }
