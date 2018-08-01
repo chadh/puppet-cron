@@ -1,10 +1,10 @@
 {
-  "name": "chadh-rsg_cron",
+  "name": "rsg-cron",
   "version": "0.1.0",
-  "author": "Chad Huneycutt",
+  "author": "MailChimp",
   "summary": "RSG Cron Module",
   "license": "Apache-2.0",
-  "source": "https://git.rsglab.com/rsg/puppet-rsg_cron",
+  "source": "https://git.rsglab.com/rsg/puppet-cron",
   "dependencies": [
 
   ],

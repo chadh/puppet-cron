@@ -1,11 +1,11 @@
-# rsg_cron::entry
+# cron::entry
 #
 # Adds a cron job to /etc/cron.d
 #
 # @summary This resource schedules a cron job.
 #
 # @example
-#    rsg_cron::entry { 'job1':
+#    cron::entry { 'job1':
 #      command => '/usr/bin/find /tmp -type f -mtime +60 -delete',
 #      user    => 'root',
 #      hour    => 2,
@@ -44,25 +44,25 @@
 # @param environment
 #   cron environment specification (newline- or comma-separated lines, array of lines, or hash of key/values)
 #
-define rsg_cron::entry(
+define cron::entry(
   String $command,
   Enum['absent','present'] $ensure             = 'present',
   Boolean $persistent                          = false,
   String[1] $user                              = 'root',
-  Optional[Rsg_cron::Minute] $minute           = undef,
-  Optional[Rsg_cron::Hour] $hour               = undef,
-  Optional[Rsg_cron::Day] $day                 = undef,
-  Optional[Rsg_cron::Month] $month             = undef,
-  Optional[Rsg_cron::Weekday] $weekday         = undef,
-  Optional[Rsg_cron::Special] $special         = undef,
-  Optional[Rsg_cron::Environment] $environment = undef,
+  Optional[Cron::Minute] $minute           = undef,
+  Optional[Cron::Hour] $hour               = undef,
+  Optional[Cron::Day] $day                 = undef,
+  Optional[Cron::Month] $month             = undef,
+  Optional[Cron::Weekday] $weekday         = undef,
+  Optional[Cron::Special] $special         = undef,
+  Optional[Cron::Environment] $environment = undef,
 ) {
-  require rsg_cron
+  require cron
 
   if $persistent {
-    $prefix = "${rsg_cron::prefix}${rsg_cron::persistent_prefix}_"
+    $prefix = "${cron::prefix}${cron::persistent_prefix}_"
   } else {
-    $prefix = "${rsg_cron::prefix}_"
+    $prefix = "${cron::prefix}_"
   }
   $jobname = "${prefix}${title}"
 
@@ -115,7 +115,7 @@ define rsg_cron::entry(
     $_environment = undef
   }
 
-  if $rsg_cron::classic {
+  if $cron::classic {
     if $special {
       cron { $jobname:
         ensure      => $ensure,

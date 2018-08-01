@@ -1,9 +1,9 @@
-# Rsg_cron::Month
+# Cron::Month
 #
-# Type used for validation of the month parameter for rsg_cron::entry
+# Type used for validation of the month parameter for cron::entry
 #
 # @summary Validation type for cron month
-type Rsg_cron::Month = Variant[
+type Cron::Month = Variant[
   Integer[1,12],
   Pattern[/^([1-9]|1[0-2]|\*)$/,
     /^(([1-9]|1[0-2])(-([1-9]|1[0-2]))?|\*)(\/([1-9]|1[0-2]))?$/,

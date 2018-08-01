@@ -1,9 +1,9 @@
-# Rsg_cron::Weekday
+# Cron::Weekday
 #
-# Type used for validation of the weekday parameter for rsg_cron::entry
+# Type used for validation of the weekday parameter for cron::entry
 #
 # @summary Validation type for weekday month
-type Rsg_cron::Weekday = Variant[
+type Cron::Weekday = Variant[
   Integer[0,7],
   Pattern[/^([0-7]|\*)$/,
     /^([0-7](-[0-7])?|\*)(\/[0-7])?$/,

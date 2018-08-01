@@ -1,9 +1,9 @@
-# Rsg_cron::Special
+# Cron::Special
 #
-# Type used for validation of the special parameter for rsg_cron::entry
+# Type used for validation of the special parameter for cron::entry
 #
 # @summary Validation type for special month
-type Rsg_cron::Special = Enum[
+type Cron::Special = Enum[
   '@reboot',
   '@yearly',
   '@annually',
