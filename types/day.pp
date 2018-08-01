@@ -1,9 +1,9 @@
-# Rsg_cron::Day
+# Cron::Day
 #
-# Type used for validation of the day parameter for rsg_cron::entry
+# Type used for validation of the day parameter for cron::entry
 #
 # @summary Validation type for cron day
-type Rsg_cron::Day = Variant[
+type Cron::Day = Variant[
   Integer[1,31],
   Pattern[/^(([12]?[2-9]|[1-3][01]?)|\*)$/,
     /^(([12]?[2-9]|[1-3][01]?)(-([12]?[2-9]|[1-3][01]?))?|\*)(\/([12]?[2-9]|[1-3][01]?))?$/,

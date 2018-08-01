@@ -1,4 +1,4 @@
-# rsg_cron::service
+# cron::service
 #
 # Controls cron service
 #
@@ -7,7 +7,7 @@
 # @api private
 #
 # @example
-#   include rsg_cron::service
-class rsg_cron::service {
-  include rsg_cron
+#   include cron::service
+class cron::service {
+  include cron
 }

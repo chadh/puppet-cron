@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'rsg_cron::entry' do
+describe 'cron::entry' do
   jobname = 'jobname'
   cronfile = "/etc/cron.d/rsg_#{jobname}.cron"
   command = '/bin/false'

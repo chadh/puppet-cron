@@ -1,8 +1,8 @@
 ---
-rsg_cron::prefix: 'rsg'
-rsg_cron::persistent_prefix: 'persistent'
-rsg_cron::purge: true
-rsg_cron::classic: false
-rsg_cron::manage_package: true
-rsg_cron::package_version: 'installed'
-rsg_cron::package_name: ~
+cron::prefix: 'rsg'
+cron::persistent_prefix: 'persistent'
+cron::purge: true
+cron::classic: false
+cron::manage_package: true
+cron::package_version: 'installed'
+cron::package_name: ~

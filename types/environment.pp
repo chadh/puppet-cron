@@ -1,4 +1,4 @@
-type Rsg_cron::Environment = Variant[
+type Cron::Environment = Variant[
   Hash[String,String],
   Array[String],
   String,

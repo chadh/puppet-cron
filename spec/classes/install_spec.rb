@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'rsg_cron::install' do
+describe 'cron::install' do
   on_supported_os.each do |os, os_facts|
     context "on #{os}" do
       let(:facts) do

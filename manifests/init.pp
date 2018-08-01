@@ -1,9 +1,9 @@
-# rsg_cron class
+# cron class
 #
 # @summary configures cron jobs
 #
 # @example Basic Usage
-#    include rsg_cron
+#    include cron
 #
 # @param [String[1]] prefix
 #   prefix string for cron jobs
@@ -26,7 +26,7 @@
 # @param [Optional[String[1]]] package_name
 #   name of OS package
 #
-class rsg_cron(
+class cron(
   String[1] $prefix,
   String[1] $persistent_prefix,
   Boolean $purge,
@@ -35,10 +35,10 @@ class rsg_cron(
   String[1] $package_version,
   Optional[String[1]] $package_name = undef,
 ) {
-  contain rsg_cron::install
-  contain rsg_cron::config
-  contain rsg_cron::service
-  Class['rsg_cron::install']
-  -> Class['rsg_cron::config']
-  ~> Class['rsg_cron::service']
+  contain cron::install
+  contain cron::config
+  contain cron::service
+  Class['cron::install']
+  -> Class['cron::config']
+  ~> Class['cron::service']
 }

@@ -1,4 +1,4 @@
-# rsg_cron::install
+# cron::install
 #
 # Install package
 #
@@ -7,17 +7,17 @@
 # @api private
 #
 # @example
-#   include rsg_cron::install
-class rsg_cron::install {
-  include rsg_cron
+#   include cron::install
+class cron::install {
+  include cron
 
-  if $rsg_cron::package_name {
-    package { $rsg_cron::package_name:
-      ensure => $rsg_cron::package_version,
+  if $cron::package_name {
+    package { $cron::package_name:
+      ensure => $cron::package_version,
     }
   }
 
-  if ! $rsg_cron::classic {
+  if ! $cron::classic {
     file { '/etc/cron.d':
       ensure => directory,
       owner  => 'root',
@@ -25,17 +25,17 @@ class rsg_cron::install {
       mode   => '0755',
     }
   }
-  if $rsg_cron::purge and ! $rsg_cron::classic {
+  if $cron::purge and ! $cron::classic {
     $purge_script = '/usr/local/sbin/purge_cron.sh'
     file { $purge_script:
       ensure  => present,
-      content => file('rsg_cron/purge_cron.sh'),
+      content => file('cron/purge_cron.sh'),
       owner   => 'root',
       group   => 'root',
       mode    => '0700',
     }
 
-    file { "/etc/cron.d/${rsg_cron::prefix}${rsg_cron::persistent_prefix}_purge_cron":
+    file { "/etc/cron.d/${cron::prefix}${cron::persistent_prefix}_purge_cron":
       ensure  => present,
       content => "*/10 * * * * root ${purge_script}\n",
       owner   => 'root',
