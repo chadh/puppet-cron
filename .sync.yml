@@ -1,9 +1,5 @@
 ---
 appveyor.yml:
   delete: true
-.gitlab-ci.yml:
-  delete: true
-.yardopts:
-  delete: true
 spec/spec_helper.rb:
   hiera_config: 'spec/fixtures/hiera.yaml'
