@@ -1,12 +1,19 @@
 {
-  "name": "rsg-cron",
+  "name": "chadh-cron",
   "version": "0.1.0",
-  "author": "MailChimp",
-  "summary": "RSG Cron Module",
+  "author": "Chad Huneycutt <chad.huneycutt@gmail.com>",
+  "summary": "Cron Module",
   "license": "Apache-2.0",
-  "source": "https://git.rsglab.com/rsg/puppet-cron",
+  "source": "https://github.com/chadh/puppet-cron",
   "dependencies": [
-
+    {
+      "name": "puppet",
+      "version_requirement": ">= 4.7.0 < 6.0.0"
+    },
+    {
+      "name": "puppetlabs/stdlib",
+      "version_requirement": ">= 4.13.0"
+    }
   ],
   "operatingsystem_support": [
     {
@@ -28,14 +35,10 @@
       ]
     }
   ],
-  "dependencies": [
+  "requirements": [
     {
       "name": "puppet",
       "version_requirement": ">= 4.7.0 < 6.0.0"
-    },
-    {
-      "name": "puppetlabs/stdlib",
-      "version_requirement": ">= 4.13.0"
     }
   ],
   "pdk-version": "1.7.0",
