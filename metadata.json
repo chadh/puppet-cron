@@ -1,10 +1,11 @@
 {
   "name": "chadh-cron",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "Chad Huneycutt <chad.huneycutt@gmail.com>",
   "summary": "Cron Module",
   "license": "Apache-2.0",
   "source": "https://github.com/chadh/puppet-cron",
+  "project_page": "https://github.com/chadh/puppet-cron",
   "dependencies": [
     {
       "name": "puppet",
